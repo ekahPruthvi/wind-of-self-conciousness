@@ -82,16 +82,24 @@ function updateDisplay() {
   const fileName = saveFiles[currentIndex];
 
   const saveDiv = document.createElement("div");
-  saveDiv.className = "save-item";
+  saveDiv.className = "save-item animate-file";
 
   const nameText = document.createElement("div");
-  nameText.className = "file-name";
   nameText.textContent = fileName;
+
+  const how_many_saves = document.createElement("div");
+  how_many_saves.className = "index";
+  how_many_saves.textContent = (currentIndex + 1) + "/" + saveFiles.length; 
 
   // saveDiv.appendChild(icon);
   saveDiv.appendChild(nameText);
   container.appendChild(saveDiv);
+  container.appendChild(how_many_saves);
 }
+
+container.addEventListener("click", () => {
+  console.log("wanna check out? " + saveFiles[currentIndex]);
+})
 
 ryt.addEventListener("click", () => {
   if (currentIndex < saveFiles.length - 1 && ryt.classList.contains("usable_btn")) {
