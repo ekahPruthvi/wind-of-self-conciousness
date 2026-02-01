@@ -23,23 +23,47 @@ pub fn App() -> View {
 
     view! {
         main(class="container") {
-            (match folder_empty.get() {
+            div(class="welcome"){
+                (match folder_empty.get() {
                 None => view! { p { "Checking system..." } },
                 
                 Some(true) => view! {
-                    div(class="welcome") {
-                        "No saves found. Create new?"
-                        button { "New Save" }
+                    div(class="screen"){
+                        p {"No saves found,"}
+                        p {"Create new?"}                    
                     }
+                    div(class="buttons"){
+                        button(class="nav-l") { "<" }
+
+                        button(class="save-btn usable_btn", on:click=|_| { /* save logic */ }) { 
+                            "New Save" 
+                        }
+
+                        button(class="save-btn hiddden", on:click=|_|{ }) {
+                            "Create Save"
+                        }
+                        
+                        button(class="nav-r") { ">" }
+                    }    
                 },
 
                 Some(false) => view! {
-                    div(class="welcome") {
-                        "Saves found! Load last?"
-                        button { "Load Save" }
+                    div(class="screen"){
+                        "saves found"
                     }
+                    div(class="buttons"){
+                        button(class="nav-l usable_btn") { "<" }
+
+                        button(class="save-btn usable_btn", on:click=|_| { /* save logic */ }) { 
+                            "Login" 
+                        }
+                        
+                        button(class="nav-r usable_btn") { ">" }
+                    } 
                 },
             })
+            }
+            
         }
     }
 }
