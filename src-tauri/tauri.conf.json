@@ -1,19 +1,16 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "wind-of-self-conciousness",
+  "productName": "viento-de-la-autoconciencia",
   "version": "0.1.0",
-  "identifier": "com.ekah.wind-of-self-conciousness",
+  "identifier": "com.ekah.viento-de-la-autoconciencia",
   "build": {
-    "beforeDevCommand": "trunk serve",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "trunk build --release",
-    "frontendDist": "../dist"
+    "frontendDist": "../src"
   },
   "app": {
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "wind-of-self-conciousness",
+        "title": "viento-de-la-autoconciencia",
         "width": 800,
         "height": 600,
         "decorations": false,
