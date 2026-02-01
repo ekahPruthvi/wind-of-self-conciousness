@@ -1,17 +1,22 @@
 const { invoke } = window.__TAURI__.core;
+import { open } from '@tauri-apps/plugin-opener';
 
-let greetInputEl;
-let greetMsgEl;
 
 async function greet() {
-  greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
+  const isEmpty = await invoke('is_wind_empty');
+  console.log("Is the folder empty?", isEmpty);
+  if (isEmpty) {
+    const screen = document.getElementById("screen");
+    const pbtn = document.getElementById("pri_btn");
+    screen.innerHTML="No Save FIles found";
+    pbtn.innerText="Create New";
+  }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  greetMsgEl = document.querySelector("#greet-msg");
-  document.querySelector("#greet-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    greet();
-  });
-});
+function primary_btn_action() {
+  
+}
+
+
+greet()
+
