@@ -55,6 +55,7 @@ inp.addEventListener("keydown", (event) =>{
     pbtn.textContent = "Create New";
     ryt.classList.add("usable_btn");
     lft.classList.add("usable_btn");
+    initSaveViewer();
   }
 });
 
@@ -105,6 +106,9 @@ ryt.addEventListener("click", () => {
   if (currentIndex < saveFiles.length - 1 && ryt.classList.contains("usable_btn")) {
     currentIndex++;
     updateDisplay();
+    lft.classList.add("usable_btn");
+  } else {
+    ryt.classList.remove("usable_btn");
   }
 })
 
@@ -112,9 +116,11 @@ lft.addEventListener("click", () => {
   if (currentIndex > 0 && lft.classList.contains("usable_btn") ) {
     currentIndex--;
     updateDisplay();
+    ryt.classList.add("usable_btn");
+  } else {
+    lft.classList.remove("usable_btn");
   }
 })
-
 
 greet()
 
