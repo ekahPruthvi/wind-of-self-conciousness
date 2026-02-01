@@ -83,6 +83,8 @@ body, html {
   border-radius: 3px;
   box-shadow: 0px 5px #300449, rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   line-height: 1px;
+
+  overflow-x: auto;
 }
 
 @keyframes move {
@@ -118,6 +120,18 @@ body, html {
   box-shadow: 0px 3px rgba(0, 0, 0, 0.762), 0px 5px 5px rgba(0, 0, 0, 0.356);
   transform: translateY(-3px);
   cursor: pointer;
+}
+
+.save-input {
+  all: unset;
+  font-family: Adwaita Mono;
+  font-style: italic;
+  text-align: start;
+  background-color: transparent;
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+  border: 1px solid white;
 }
 
 h1 {

@@ -1,9 +1,6 @@
-use serde::{Deserialize, Serialize};
 use sycamore::futures::spawn_local_scoped;
 use sycamore::prelude::*;
-use sycamore::web::events::SubmitEvent;
 use wasm_bindgen::prelude::*;
-
 
 #[wasm_bindgen]
 extern "C" {
@@ -21,6 +18,7 @@ pub fn App() -> View {
         let res = invoke("is_wind_empty", JsValue::NULL).await;
         folder_empty.set(res.as_bool());
     });
+
 
     view! {
         main(class="container") {

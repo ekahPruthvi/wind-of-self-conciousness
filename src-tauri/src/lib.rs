@@ -3,7 +3,7 @@ use std::fs;
 #[tauri::command]
 fn create_save_file(name: String) -> Result<(), String> {
     let path = format!("/var/lib/cynager/wind/{}", name);
-    std::fs::write(&path, "new_save_data") // Creates the .sav file
+    std::fs::write(&path, "new_save_data")
         .map_err(|e| format!("Failed to create save: {}", e))?;
     Ok(())
 }
@@ -11,9 +11,15 @@ fn create_save_file(name: String) -> Result<(), String> {
 #[tauri::command]
 fn is_wind_empty() -> bool {
     let path = "/var/lib/cynager/wind/";
+    
     match fs::read_dir(path) {
-        Ok(mut entries) => entries.next().is_none(),
-        Err(_) => true, 
+        Ok(mut entries) => {
+            entries.next().is_none()
+        },
+        Err(_) => {
+            let _ = fs::create_dir_all(path); 
+            true
+        }
     }
 }
 
