@@ -139,6 +139,7 @@ h1 {
 }
 
 button {
+  all:unset;
   border-radius: 3px;
   padding: 5px;
   border: 1px solid black;
@@ -153,8 +154,8 @@ button {
 }
 
 .nav_r{
-  grid-column: 1;
-  justify-self: start;
+  grid-column: 3;
+  /* justify-self: fill; */
 }
 
 .save_btn{
@@ -163,8 +164,8 @@ button {
 }
 
 .nav_l{
-  grid-column: 3;
-  justify-self: end;
+  grid-column: 1;
+  /* justify-self: start; */
 }
 
 .hiddden {
