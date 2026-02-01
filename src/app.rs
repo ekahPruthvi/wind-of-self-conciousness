@@ -3,8 +3,7 @@ use sycamore::futures::spawn_local_scoped;
 use sycamore::prelude::*;
 use sycamore::web::events::SubmitEvent;
 use wasm_bindgen::prelude::*;
-use std::fs;
-use std::io::{Read, Write};
+
 
 #[wasm_bindgen]
 extern "C" {
@@ -15,6 +14,8 @@ extern "C" {
 #[component]
 pub fn App() -> View {
     let folder_empty = create_signal(None::<bool>);
+    let is_naming = create_signal(false);
+    let save_name = create_signal(String::new());
 
     spawn_local_scoped(async move {
         let res = invoke("is_wind_empty", JsValue::NULL).await;
@@ -28,20 +29,50 @@ pub fn App() -> View {
                 None => view! { p { "Checking system..." } },
                 
                 Some(true) => view! {
-                    div(class="screen"){
-                        p {"No saves found,"}
-                        p {"Create new?"}                    
+                    div(class="screen") {
+                        (if !is_naming.get() {
+                            view! {
+                                p { "No saves found," }
+                                p { "Create new?" }
+                            }
+                        } else {
+                            view! {
+                                p { "Enter save name:" }
+                                input(
+                                    class="save-input",
+                                    bind:value=save_name,
+                                    placeholder="save name"
+                                )
+                            }
+                        })
                     }
                     div(class="buttons"){
                         button(class="nav-l") { "<" }
 
-                        button(class="save-btn usable_btn", on:click=|_| { /* save logic */ }) { 
-                            "New Save" 
-                        }
+                        (if !is_naming.get() {
+                            let is_naming = is_naming.clone();
+                            view! {
+                                button(class="save-btn usable_btn", on:click=move |_| is_naming.set(true)) { 
+                                    "New Save" 
+                                }
+                            }
+                        } else {
+                            view! {
+                                button(class="save-btn usable_btn", on:click=move |_| {
+                                    spawn_local_scoped(async move {
+                                        let name_string = format!("{}.sav", save_name.get_clone());
+                                        
+                                        let args = js_sys::Object::new();
+                                        js_sys::Reflect::set(&args, &"name".into(), &name_string.into()).unwrap();
 
-                        button(class="save-btn hiddden", on:click=|_|{ }) {
-                            "Create Save"
-                        }
+                                        invoke("create_save_file", args.into()).await;
+                                        is_naming.set(false);
+                                    });
+                                }) { 
+                                    "Create Save" 
+                                }
+                            }
+                        })
                         
                         button(class="nav-r") { ">" }
                     }    
