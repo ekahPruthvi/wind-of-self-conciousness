@@ -46,9 +46,8 @@ body, html {
   min-width: 100vw;
 }
 
-
 .welcome {
-  height: 40vh;
+  /* height: 40vh; */
   width: 20vw;
   background-color: #6d23b7;
   padding: 30px;
@@ -122,6 +121,45 @@ body, html {
   cursor: pointer;
 }
 
+.savectr{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.save-item {
+  display: flex;
+  flex-direction: column; 
+  align-items: end;
+  justify-content: center;
+  
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: 800;
+  font-size: 20px;
+  font-family: Adwaita Mono;
+  background-image: linear-gradient(
+      90deg,
+      transparent 50px,
+      #ffb4b8 50px,
+      #ffb4b8 52px,
+      transparent 52px
+    ),
+    linear-gradient(#e1e1e1 0.1em, transparent 0.1em);
+  background-size: 80% 10px;
+  
+  width: 100px;
+  height: 120px;
+  padding: 10px;
+  border-radius: 5px;
+  
+  border: 1px solid #000000;
+  box-shadow: 0px 3px rgb(88, 88, 88), 0px 4px black;
+  transition: transform 0.1s, background-color 0.2s;
+  cursor: pointer;
+  overflow: hidden; 
+}
+
 .save-input {
   all: unset;
   font-family: Adwaita Mono;
@@ -153,7 +191,7 @@ button {
   cursor: not-allowed;
 }
 
-.nav_r{
+#nav_r{
   grid-column: 3;
 }
 
@@ -162,13 +200,14 @@ button {
   justify-self: center;
 }
 
-.nav_l{
+#nav_l{
   grid-column: 1;
 }
 
 .hiddden {
   display: none;
 }
+
 
 .usable_btn:active {
   border-radius: 3px;
