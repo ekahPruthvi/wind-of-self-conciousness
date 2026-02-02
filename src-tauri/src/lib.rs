@@ -15,6 +15,23 @@ fn create_save_file(name: String) -> Result<(), String> {
 }
 
 #[tauri::command]
+fn delete_save_file(name: String) -> Result<(), String> {
+    if let Some(mut path) = dirs::data_dir() {
+        path.push("wind");
+        path.push(name);
+
+        if path.exists() {
+            fs::remove_file(&path).map_err(|e| format!("Failed to delete file: {}", e))?;
+            Ok(())
+        } else {
+            Err("File not found".into())
+        }
+    } else {
+        Err("Could not find local data directory".into())
+    }
+}
+
+#[tauri::command]
 fn is_wind_empty() -> bool {
     if let Some(mut path) = dirs::data_dir() {
         path.push("wind");
@@ -68,7 +85,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             is_wind_empty,
             create_save_file,
-            get_save_files
+            get_save_files,
+            delete_save_file
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

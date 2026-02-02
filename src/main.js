@@ -1,5 +1,9 @@
 const { invoke } = window.__TAURI__.core;
 
+document.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+}, false);
+
 const screentxt = document.getElementById("sctxt");
 const pbtn = document.getElementById("pri_btn");
 const inp = document.getElementById("saveinp");
@@ -55,6 +59,7 @@ inp.addEventListener("keydown", (event) =>{
     pbtn.textContent = "Create New";
     ryt.classList.add("usable_btn");
     lft.classList.add("usable_btn");
+    inp.value = "";
     initSaveViewer();
   }
 });
@@ -100,6 +105,14 @@ function updateDisplay() {
 
 container.addEventListener("click", () => {
   console.log("wanna check out? " + saveFiles[currentIndex]);
+  if (saveFiles.length > 0) {
+    const selectedFile = saveFiles[currentIndex];
+    
+    const colors = ["#ff5555", "#55ff55", "#5555ff", "#ffff55"];
+    const myColor = colors[currentIndex % colors.length];
+
+    window.location.href = `viewer.html?file=${selectedFile}&bg=${encodeURIComponent(myColor)}`;
+  }
 })
 
 ryt.addEventListener("click", () => {
@@ -124,3 +137,30 @@ lft.addEventListener("click", () => {
 
 greet()
 
+
+async function deleteCurrentSave() { 
+  console.log("delete called");
+  await invoke('delete_save_file', { name: (saveFiles[currentIndex])} );
+  initSaveViewer();
+  currentIndex = 0;
+}
+
+const contextMenu = document.getElementById("context-menu");
+container.addEventListener("contextmenu", (e) => {
+  e.preventDefault(); 
+
+  const { clientX: mouseX, clientY: mouseY } = e;
+
+  contextMenu.style.top = `${mouseY}px`;
+  contextMenu.style.left = `${mouseX}px`;
+
+  contextMenu.classList.remove("hiddden");
+});
+
+document.addEventListener("click", () => {
+  contextMenu.classList.add("hiddden");
+});
+
+document.getElementById("menu-delete").addEventListener("click", () => {
+  deleteCurrentSave();
+});
