@@ -17,7 +17,7 @@ const { invoke } = window.__TAURI__.core;
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-let player = { x: 50, y: 50, size: 2, color: '#00ff00', speed: 2 };
+let player = { x: 50, y: 50, size: 2, color: '#00ff00', speed: 1 };
 let keys = {};
 
 window.addEventListener('keydown', (e) => keys[e.code] = true);
