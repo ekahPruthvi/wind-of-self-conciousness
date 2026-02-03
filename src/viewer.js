@@ -34,14 +34,15 @@ function generateMap(cols, rows) {
   return newMap;
 }
 
+
 const map = generateMap(MAP_COLUMNS, MAP_ROWS);
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 let player = {
-  x: 50, 
-  y: 50,
+  x: 5, 
+  y: 5,
   size: 5,
   speed: 1,
   stretchX: 1,
@@ -83,7 +84,7 @@ function canMoveTo(x, y) {
 }
 
 function update() {
-  const BASE_SPEED = 0.5;
+  const BASE_SPEED = 1;
   const SPRINT_SPEED = 2;
   
   player.speed = keys['ShiftLeft'] ? SPRINT_SPEED : BASE_SPEED;
@@ -124,7 +125,7 @@ function draw() {
   map.forEach((row, y) => {
     row.forEach((tile, x) => {
       if (tile === 1) {
-        ctx.fillStyle = '#ff5f5fff';
+        ctx.fillStyle = '#000000ff';
         ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
       }
     });
