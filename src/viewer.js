@@ -37,6 +37,9 @@ function generateMap(cols, rows) {
 
 const map = generateMap(MAP_COLUMNS, MAP_ROWS);
 
+map[10][10] = 2;
+map[20][30] = 2;
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -75,8 +78,8 @@ function canMoveTo(x, y) {
     const gridX = Math.floor(p.x / TILE_SIZE);
     const gridY = Math.floor(p.y / TILE_SIZE);
 
-    if (map[gridY] && map[gridY][gridX] === 1) {
-        return false;
+    if (map[gridY] && map[gridY][gridX] !== 0) {
+      return false;
     }
   }
 
@@ -122,15 +125,6 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  map.forEach((row, y) => {
-    row.forEach((tile, x) => {
-      if (tile === 1) {
-        ctx.fillStyle = '#000000ff';
-        ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-      }
-    });
-  });
-
   ctx.save();
 
   ctx.translate(player.x + player.size / 2, player.y + player.size);
@@ -148,6 +142,46 @@ function draw() {
   );
 
   ctx.restore();
+
+
+  map.forEach((row, y) => {
+    row.forEach((tile, x) => {
+      if (tile === 1) {
+        ctx.fillStyle = '#000000ff';
+        ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      } else if (tile === 2) {
+        // tree
+
+        ctx.fillStyle = `rgba(87, 62, 0, 1)`; 
+        ctx.fillRect(((x * TILE_SIZE) - 1), ((y * TILE_SIZE) - 3), 6, 8);
+
+        ctx.fillStyle = `rgba(110, 79, 0, 1)`; 
+        ctx.fillRect(((x * TILE_SIZE) + 2), ((y * TILE_SIZE) - 3), 2, 8);
+
+        // leaves
+        ctx.fillStyle = `rgba(10, 87, 0, 1)`; 
+        ctx.fillRect(((x * TILE_SIZE) - 1), ((y * TILE_SIZE) - 10), 6, 8);
+
+        ctx.fillStyle = `rgba(14, 122, 0, 1)`; 
+        ctx.fillRect(((x * TILE_SIZE) - 5), ((y * TILE_SIZE) - 5), 6, 5);
+
+        ctx.fillStyle = `rgba(8, 68, 0, 1)`; 
+        ctx.fillRect(((x * TILE_SIZE) + 4), ((y * TILE_SIZE) - 6), 5, 7);
+
+        ctx.fillStyle = `rgba(16, 88, 7, 0.78)`; 
+        ctx.fillRect(((x * TILE_SIZE) - 4), ((y * TILE_SIZE) - 4), 1, 1);
+
+        ctx.fillStyle = `rgba(16, 88, 7, 0.78)`; 
+        ctx.fillRect(((x * TILE_SIZE) - 3), ((y * TILE_SIZE) - 3), 2, 1);
+        
+        ctx.fillStyle = `rgba(6, 91, 0, 1)`; 
+        ctx.fillRect(((x * TILE_SIZE) + 5), ((y * TILE_SIZE) - 6), 1, 1);
+
+        ctx.fillStyle = `rgba(8, 68, 0, 1)`; 
+        ctx.fillRect(((x * TILE_SIZE) + 5), ((y * TILE_SIZE) - 7), 1, 1);
+      }
+    });
+  });
 }
 
 function loop() {
