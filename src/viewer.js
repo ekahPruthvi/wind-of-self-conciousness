@@ -15,13 +15,26 @@ const { invoke } = window.__TAURI__.core;
 // } color changing logic based on savefiles
 
 const TILE_SIZE = 5;
-const map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 1, 0, 0, 1, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-];
+const MAP_COLUMNS = Math.floor(300 / TILE_SIZE);
+const MAP_ROWS = Math.floor(150 / TILE_SIZE);
+
+function generateMap(cols, rows) {
+  let newMap = [];
+  for (let y = 0; y < rows; y++) {
+    let row = [];
+    for (let x = 0; x < cols; x++) {
+      if (y === 0 || y === rows - 1 || x === 0 || x === cols - 1) {
+        row.push(1);
+      } else {
+        row.push(0);
+      }
+    }
+    newMap.push(row);
+  }
+  return newMap;
+}
+
+const map = generateMap(MAP_COLUMNS, MAP_ROWS);
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -93,7 +106,7 @@ function draw() {
   map.forEach((row, y) => {
     row.forEach((tile, x) => {
       if (tile === 1) {
-        ctx.fillStyle = '#444';
+        ctx.fillStyle = '#ff5f5fff';
         ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
       }
     });
