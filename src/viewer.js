@@ -39,9 +39,18 @@ const map = generateMap(MAP_COLUMNS, MAP_ROWS);
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-let player = { x: 50, y: 50, size: 5, color: '#00ff00', speed: 1 };
+let player = {
+  x: 50, 
+  y: 50,
+  size: 5,
+  speed: 1,
+  stretchX: 1,
+  stretchY: 1,
+  animTimer: 0
+};
+
 const playerSprite = new Image();
-playerSprite.src = '/assets/javascript.svg';
+playerSprite.src = '/assets/player.svg';
 let playerFacing = 1;
 let keys = {};
 
@@ -74,10 +83,11 @@ function canMoveTo(x, y) {
 }
 
 function update() {
-  const BASE_SPEED = 1;
+  const BASE_SPEED = 0.5;
   const SPRINT_SPEED = 2;
   
   player.speed = keys['ShiftLeft'] ? SPRINT_SPEED : BASE_SPEED;
+  const isMoving = keys['ArrowLeft'] || keys['ArrowRight'] || keys['ArrowUp'] || keys['ArrowDown'];
   
   let movx = 0;
   let movy = 0;
@@ -96,6 +106,14 @@ function update() {
   if (canMoveTo(player.x, nexty)) {
     player.y = nexty;
   }
+
+  if (isMoving) {
+    player.stretchX = 0.8 + Math.sin(player.animTimer) * 0.1;
+    player.stretchY = 1.2 - Math.sin(player.animTimer) * 0.1;
+  } else {
+    player.stretchX = 1.0 + Math.sin(player.animTimer) * 0.05;
+    player.stretchY = 1.0 - Math.sin(player.animTimer) * 0.05;
+  }
 }
 
 
@@ -113,16 +131,21 @@ function draw() {
   });
 
   ctx.save();
-  ctx.translate(player.x + player.size / 2, player.y + player.size / 2);
-  ctx.scale(playerFacing, 1); 
-  
+
+  ctx.translate(player.x + player.size / 2, player.y + player.size);
+
+  ctx.scale(player.stretchX, player.stretchY);
+
+  if (keys['ArrowLeft']) ctx.scale(-1, 1);
+
   ctx.drawImage(
     playerSprite, 
     -player.size / 2, 
-    -player.size / 2, 
+    -player.size,
     player.size, 
     player.size
   );
+
   ctx.restore();
 }
 
