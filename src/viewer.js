@@ -65,9 +65,9 @@ window.addEventListener('keyup', (e) => keys[e.code] = false);
 
 function canMoveTo(x, y) {
   const left = x;
-  const right = x + player.size;
+  const right = x + player.size - 1;
   const top = y;
-  const bottom = y + player.size;
+  const bottom = y + player.size - 1;
 
   const corners = [
     { x: left,  y: top },    

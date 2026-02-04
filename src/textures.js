@@ -1,40 +1,65 @@
 const size = 5;
 
 export function drawTexture(id , ctx, x ,y){
- const textures = {
-    1: () => { // END OF MAP
-      ctx.fillStyle = "#000";
-      ctx.fillRect(x * size, y * size, size, size);
-    },
-    2: () => { // TREE
-        ctx.fillStyle = `rgba(87, 62, 0, 1)`; 
-        ctx.fillRect(((x * size) - 1), ((y * size) - 3), 6, 8);
+    const xpos = x * size;
+    const ypos = y * size;
+    const textures = {
+        1: () => { // END OF MAP
+            ctx.fillStyle = "#000";
+            ctx.fillRect(xpos, ypos, size, size); // pos, pos, thickness, height
+        },
+        2: () => { // TREE
+            // leaves
+            ctx.fillStyle = `rgba(57, 118, 0, 1)`; 
+            ctx.fillRect((xpos - 4), (ypos - 8), 12, 3);
 
-        ctx.fillStyle = `rgba(110, 79, 0, 1)`; 
-        ctx.fillRect(((x * size) + 2), ((y * size) - 3), 2, 8);
+            ctx.fillStyle = `rgba(43, 90, 0, 1)`; 
+            ctx.fillRect((xpos - 5), (ypos - 6), 15, 3);
 
-        // leaves
-        ctx.fillStyle = `rgba(10, 87, 0, 1)`; 
-        ctx.fillRect(((x * size) - 1), ((y * size) - 10), 6, 8);
+            ctx.fillStyle = `rgba(57, 118, 0, 1)`; 
+            ctx.fillRect((xpos - 4), (ypos - 5), 1, 2);
 
-        ctx.fillStyle = `rgba(14, 122, 0, 1)`; 
-        ctx.fillRect(((x * size) - 5), ((y * size) - 5), 6, 5);
+            ctx.fillStyle = `rgba(43, 90, 0, 1)`; 
+            ctx.fillRect((xpos - 6), (ypos - 3), 18, 2);
 
-        ctx.fillStyle = `rgba(8, 68, 0, 1)`; 
-        ctx.fillRect(((x * size) + 4), ((y * size) - 6), 5, 7);
+            ctx.fillStyle = `rgba(28, 58, 0, 1)`; 
+            ctx.fillRect((xpos - 2), (ypos - 3), 8, 3);
 
-        ctx.fillStyle = `rgba(16, 88, 7, 0.78)`; 
-        ctx.fillRect(((x * size) - 4), ((y * size) - 4), 1, 1);
+            // bark
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos + 1), (ypos - 3), 2, 4);
 
-        ctx.fillStyle = `rgba(16, 88, 7, 0.78)`; 
-        ctx.fillRect(((x * size) - 3), ((y * size) - 3), 2, 1);
-        
-        ctx.fillStyle = `rgba(6, 91, 0, 1)`; 
-        ctx.fillRect(((x * size) + 5), ((y * size) - 6), 1, 1);
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos), (ypos - 4), 5, 2);
 
-        ctx.fillStyle = `rgba(8, 68, 0, 1)`; 
-        ctx.fillRect(((x * size) + 5), ((y * size) - 7), 1, 1);
-    }
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos + 3), (ypos - 1), 1, 2);
+
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos), (ypos + 1), size, 1);
+
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos - 3), (ypos + 2), 10, 1);
+
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos + 1), (ypos), 2, 4);
+
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos + 3), (ypos + 4), 1, 1);
+
+            ctx.fillStyle = `rgba(68, 48, 0, 1)`; 
+            ctx.fillRect((xpos + 3), (ypos + 4), 1, 1);
+
+            // leaves on bark
+            ctx.fillStyle = `rgba(43, 90, 0, 1)`; 
+            ctx.fillRect((xpos - 3), (ypos - 5), 5, 3);
+
+            ctx.fillStyle = `rgba(57, 118, 0, 1)`; 
+            ctx.fillRect((xpos - 3), (ypos - 4), 1, 1);
+
+            ctx.fillStyle = `rgba(57, 118, 0, 1)`; 
+            ctx.fillRect((xpos - 1), (ypos - 6), 3, 1);
+        }
   };
 
   if (textures[id]) {
