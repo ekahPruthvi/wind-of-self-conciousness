@@ -7,6 +7,7 @@ document.addEventListener('contextmenu', (event) => {
 const screentxt = document.getElementById("sctxt");
 const pbtn = document.getElementById("pri_btn");
 const inp = document.getElementById("saveinp");
+const sel = document.getElementById("template");
 const ryt = document.getElementById("nav_r");
 const lft = document.getElementById("nav_l");
 const container = document.getElementById("saves");
@@ -42,12 +43,14 @@ pbtn.addEventListener("click", () => {
     container.classList.add("hiddden");
     ryt.classList.remove("usable_btn");
     lft.classList.remove("usable_btn");
+    sel.classList.remove("hiddden");
   } else {
     container.classList.remove("hiddden");
     inp.classList.add("hiddden");
     pbtn.textContent = "Create New";
     ryt.classList.add("usable_btn");
     lft.classList.add("usable_btn");
+    sel.classList.add("hiddden");
   }
 });
 

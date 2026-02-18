@@ -16,7 +16,7 @@ export function drawTexture(id , ctx, x ,y){
             ctx.fillStyle = "#000000ff";
             ctx.fillRect((xpos), (ypos), 5, 5); // pos, pos, thickness, heightye
 
-        },
+        },  
         2: () => { // TREE
             // leaves
             ctx.fillStyle = `rgba(57, 118, 0, 1)`; 

@@ -203,6 +203,19 @@ button {
   cursor: not-allowed;
 }
 
+.template {
+  margin-top: 20px;
+}
+
+select {
+  all: unset;
+  height: 20px;
+  width: auto;
+  background-color: #000000;
+}
+select>option {
+}
+
 #nav_r{
   grid-column: 3;
 }
