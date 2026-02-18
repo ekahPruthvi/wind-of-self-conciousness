@@ -42,6 +42,10 @@ map[10][10] = 2;
 map[20][30] = 2;
 map[22][33] = 2;
 map[19][13] = 2;
+map[20][15] = 2;
+map[20][10] = 2;
+
+map[10][30] = 3;
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -127,6 +131,14 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  map.forEach((row, y) => {
+    row.forEach((tile, x) => {
+      if (tile !== 1 && tile !== 0 && tile !== 3) {
+        TextureModule.drawTexture(0,ctx,x,y);
+      }
+    });
+  });
+
   ctx.save();
 
   ctx.translate(player.x + player.size / 2, player.y + player.size);
@@ -152,6 +164,8 @@ function draw() {
         TextureModule.drawTexture(1,ctx,x,y);
       } else if (tile === 2) {
         TextureModule.drawTexture(2,ctx,x,y);
+      } else if (tile === 3) {
+        TextureModule.drawTexture(3,ctx,x,y);
       }
     });
   });
